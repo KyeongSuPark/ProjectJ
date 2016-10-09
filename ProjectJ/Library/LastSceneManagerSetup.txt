@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Toon Character Pack/Scenes/Toon Character SCN Smooth.unity
+  isLoaded: 1
+  isActive: 1
