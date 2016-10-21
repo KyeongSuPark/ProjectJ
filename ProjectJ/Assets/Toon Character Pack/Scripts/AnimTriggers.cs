@@ -31,9 +31,4 @@ public class AnimTriggers : MonoBehaviour
 			animator.SetBool("JumpDown", false);
 		}
 	}
-
-    void Func1()
-    {
-
-    }
 }
