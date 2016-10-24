@@ -8,7 +8,9 @@ using System;
 /// </summary>
 public enum eLogFilter : int
 {
-    Normal,                /// 일반 로그
+    Normal,         ///< 일반 로그
+    State,          ///< 상태
+    Jump,           ///< 점프
 }   
 
 /// <summary>

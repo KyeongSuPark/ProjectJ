@@ -69,6 +69,8 @@ public class Player : MonoBehaviour {
         m_State.OnStateExit();
         m_State = newUnitState;
         m_State.OnStateEnter(_arg);
+
+        Log.Print(eLogFilter.State, "change state to " + _eUnitState);
     }
 
     /// <summary>
@@ -128,6 +130,8 @@ public class Player : MonoBehaviour {
     /// <param name="_duration">점프할 시간</param>
     private IEnumerator InternalJump(Vector3 _target, float _duration, float _startVelocity)
     {
+        Log.Print(eLogFilter.Jump, System.String.Format("start jump target:{0} position:{1} velocity:{2}", _target, _duration, _startVelocity));
+
         Vector3 startPos = transform.position;
         float time = 0.0f;
         float interpCoeff = 0.0f; //. 보간 계수
@@ -140,6 +144,7 @@ public class Player : MonoBehaviour {
             if(interpCoeff > 1.0f)
             {
                 transform.position = _target;
+                Log.Print(eLogFilter.Jump, "end jump!!");
                 yield break;
             }
 
@@ -156,6 +161,7 @@ public class Player : MonoBehaviour {
         }
 
         transform.position = _target;
+        Log.Print(eLogFilter.Jump, "end jump!!");
         yield break;
     }
 
@@ -185,12 +191,16 @@ public class Player : MonoBehaviour {
     {
         Vector3 target = GetJumpPosition(m_eLane);
         StartCoroutine(InternalJump(target, _duration, m_JumpPower));
+
+        Log.Print(eLogFilter.Jump, "normal jump lane(" + m_eLane + ")");
     }
     
     public void DoubleJump(float _duration)
     {
         Vector3 target = GetJumpPosition(m_eLane);
         StartCoroutine(InternalJump(target, _duration, m_DoubleJumpPower));
+
+        Log.Print(eLogFilter.Jump, "double jump lane(" + m_eLane + ")");
     }
 
     public void LeftJump(float _duration)
@@ -202,6 +212,8 @@ public class Player : MonoBehaviour {
         //. 아니면 왼쪽 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(--m_eLane);
         StartCoroutine(InternalJump(target, _duration, m_SideJumpPower));
+
+        Log.Print(eLogFilter.Jump, "left jump lane(" + m_eLane + ")");
     }
 
     public void RightJump(float _duration)
@@ -213,6 +225,8 @@ public class Player : MonoBehaviour {
         //. 아니면 우측 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(++m_eLane);
         StartCoroutine(InternalJump(target, _duration, m_SideJumpPower));
+
+        Log.Print(eLogFilter.Jump, "right jump lane(" + m_eLane + ")");
     }
 
     /// <summary>
