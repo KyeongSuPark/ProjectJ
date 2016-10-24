@@ -27,11 +27,11 @@ public class RunState : PlayerState
         {
             m_Parent.ChangeState(ePlayerState.JumpStart);
         }
-        else if(Input.GetButtonDown(R.String.INPUT_LEFT_JUMP))
+        else if(Input.GetButtonDown(R.String.INPUT_LEFT_JUMP) && m_Parent.Lane != eLane.Left)
         {
             m_Parent.ChangeState(ePlayerState.LeftJump);
         }
-        else if(Input.GetButtonDown(R.String.INPUT_RIGHT_JUMP))
+        else if(Input.GetButtonDown(R.String.INPUT_RIGHT_JUMP) && m_Parent.Lane != eLane.Right)
         {
             m_Parent.ChangeState(ePlayerState.RightJump);
         }

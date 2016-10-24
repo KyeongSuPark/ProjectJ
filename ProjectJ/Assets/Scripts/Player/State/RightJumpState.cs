@@ -2,9 +2,11 @@
 using System.Collections;
 
 public class RightJumpState : PlayerState {
+    private float m_JumpDuration = 0.0f;
     public RightJumpState(Player _parent)
         : base(_parent)
     {
+        m_JumpDuration += m_Parent.GetAnimationLength(R.String.ANIM_CLIP_FLIP);
     }
 
     public override ePlayerState GetCode()
@@ -15,8 +17,9 @@ public class RightJumpState : PlayerState {
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
         m_Animator.SetTrigger(R.String.ANIM_TRIGGER_RIGHT_JUMP);
-        m_Rigidbody.AddForce(Vector3.right* m_Parent.SideJumpPower);
-        m_Rigidbody.AddForce(Vector3.up * m_Parent.JumpPower);
+        //m_Rigidbody.AddForce(Vector3.right* m_Parent.SideJumpPower);
+        //m_Rigidbody.AddForce(Vector3.up * m_Parent.JumpPower);
+        m_Parent.RightJump(m_JumpDuration);
     }
 
     public override void Update()

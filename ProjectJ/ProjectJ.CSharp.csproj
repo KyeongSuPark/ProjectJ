@@ -89,6 +89,8 @@
     <Compile Include="Assets\Toon Character Pack\Scripts\SmoothCameraOrbit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Editor\Doxygen\ReadMe.txt" />
+    <None Include="Assets\Editor\Doxygen\Resources\BaseDoxyfile.txt" />
     <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-Basic.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />

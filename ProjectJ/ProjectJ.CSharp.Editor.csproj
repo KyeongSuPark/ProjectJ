@@ -111,9 +111,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\Doxygen\DoxygenWindow.cs" />
     <Compile Include="Assets\Editor\LogEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Editor\Doxygen\ReadMe.txt" />
+    <None Include="Assets\Editor\Doxygen\Resources\BaseDoxyfile.txt" />
     <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-Basic.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />

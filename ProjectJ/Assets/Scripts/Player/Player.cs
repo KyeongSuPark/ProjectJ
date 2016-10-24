@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Player : MonoBehaviour {
-    
+
+    private Animator m_Animator = null;     ///< 애니메이터
     private PlayerState m_State = null;     ///< 현재 상태
+    private eLane m_eLane = eLane.Middle;   ///< 현재 플레이어가 있는 Lane
+
     private Dictionary<ePlayerState, PlayerState> m_StateCache = null;  ///< 플레이어 상태 캐쉬
-    
+
+    public Transform[] m_JumpPos;              ///< 점프 할 위치 (반드시 세개여야 한다)
     public float m_MoveSpeed = 3.0f;            ///< 이동속도
     public float m_JumpPower = 200.0f;          ///< 점프 파워
     public float m_DoubleJumpPower = 200.0f;    ///< 더블 점프 파워
@@ -16,6 +21,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 
         m_StateCache = new Dictionary<ePlayerState, PlayerState>();
+        m_Animator = GetComponent<Animator>();
 
         //. 시작 부터 달리는 상태
         m_State = new RunState(this);
@@ -110,6 +116,132 @@ public class Player : MonoBehaviour {
         }
     }
 
+    void OnDrawGizmos()
+    {
+        //Gizmos.DrawLine();
+    }
+
+    /// <summary>
+    /// 타겟 위치로 주어진 duration 만큼 Jump!
+    /// </summary>
+    /// <param name="_target">점프 타겟 위치</param>
+    /// <param name="_duration">점프할 시간</param>
+    private IEnumerator InternalJump(Vector3 _target, float _duration, float _startVelocity)
+    {
+        Vector3 startPos = transform.position;
+        float time = 0.0f;
+        float interpCoeff = 0.0f; //. 보간 계수
+        float velocityY = _startVelocity;
+        float height = startPos.y;
+
+        while(IsJumping())
+        {
+            interpCoeff = time / _duration;
+            if(interpCoeff > 1.0f)
+            {
+                transform.position = _target;
+                yield break;
+            }
+
+            Vector3 curPos = Vector3.Lerp(startPos, _target, interpCoeff);
+            curPos.y = height;
+            transform.position = curPos;
+
+            //. wait until next frame
+            yield return null;
+
+            height += velocityY * Time.deltaTime;
+            velocityY += Time.deltaTime * Physics.gravity.y;
+            time += Time.deltaTime;
+        }
+
+        transform.position = _target;
+        yield break;
+    }
+
+    /// <summary>
+    /// 점프 중인가?
+    /// </summary>
+    public bool IsJumping()
+    {
+        switch(m_State.GetCode())
+        {
+            case ePlayerState.DoubleJump:
+            case ePlayerState.LeftJump:
+            case ePlayerState.RightJump:
+            case ePlayerState.JumpStart:
+            case ePlayerState.Jumpping:
+            case ePlayerState.Land:
+                return true;
+
+        }
+        return false;   
+    }
+
+    /// <summary>
+    ///  Jump 외부용 함수들
+    /// </summary>
+    public void Jump(float _duration)
+    {
+        Vector3 target = GetJumpPosition(m_eLane);
+        StartCoroutine(InternalJump(target, _duration, m_JumpPower));
+    }
+    
+    public void DoubleJump(float _duration)
+    {
+        Vector3 target = GetJumpPosition(m_eLane);
+        StartCoroutine(InternalJump(target, _duration, m_DoubleJumpPower));
+    }
+
+    public void LeftJump(float _duration)
+    {
+        //. 이미 좌측 레인에 있나?
+        if (m_eLane == eLane.Left)
+            return;
+
+        //. 아니면 왼쪽 레인 타겟으로 점프
+        Vector3 target = GetJumpPosition(--m_eLane);
+        StartCoroutine(InternalJump(target, _duration, m_SideJumpPower));
+    }
+
+    public void RightJump(float _duration)
+    {
+        //. 이미 우측 레인에 있나?
+        if (m_eLane == eLane.Right)
+            return;
+
+        //. 아니면 우측 레인 타겟으로 점프
+        Vector3 target = GetJumpPosition(++m_eLane);
+        StartCoroutine(InternalJump(target, _duration, m_SideJumpPower));
+    }
+
+    /// <summary>
+    /// 점프 위치 반환
+    /// </summary>
+    public Vector3 GetJumpPosition(eLane _lane)
+    {
+        int idx = (int)_lane;
+        if(idx < 0 && idx >= m_JumpPos.Length)
+        {
+            Log.PrintError(eLogFilter.Normal, "Player::GetJumpPosition() - invalid enum value(eLane) : " + _lane);
+            return Vector3.zero;
+        }
+
+        return m_JumpPos[idx].position;
+    }
+
+    /// <summary>
+    ///   애니메이션 Clip 길이를 반환
+    /// </summary>
+    public float GetAnimationLength(string _animName)
+    {
+        AnimationClip animClip = m_Animator.runtimeAnimatorController.animationClips.First(x => x.name.Contains(_animName));
+        if (animClip == null)
+            return 0;
+
+        return animClip.length;        
+    }
+
     /// 각종 getter
     public float MoveSpeed
     {
@@ -129,6 +261,11 @@ public class Player : MonoBehaviour {
     public float SideJumpPower
     {
         get { return m_SideJumpPower; }
+    }
+
+    public eLane Lane
+    {
+        get { return m_eLane; }
     }
 
 }

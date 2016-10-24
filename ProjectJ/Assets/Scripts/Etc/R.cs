@@ -17,6 +17,16 @@ public enum ePlayerState
 }
 
 /// <summary>
+/// 플레이어 길 값
+/// </summary>
+public enum eLane
+{
+    Left,           ///< 왼쪽 길
+    Middle,         ///< 가운데 길
+    Right,          ///< 오른쪽 길
+}
+
+/// <summary>
 /// Animation Event 코드값
 /// </summary>
 public enum eAnimationEvent
@@ -49,6 +59,12 @@ public class R
         public static string ANIM_TRIGGER_DOUBLE_JUMP = "DoubleJump";   ///< Double Jump
         public static string ANIM_TRIGGER_LEFT_JUMP = "LeftJump";       ///< Left Jump
         public static string ANIM_TRIGGER_RIGHT_JUMP = "RightJump";     ///< Right Jump
+
+        /// Anim Clip Name
+        public static string ANIM_CLIP_JUMP_START = "Jump 01 Start";    ///< 점프 시작
+        public static string ANIM_CLIP_JUMPPING = "Jump 01 In Air";     ///< 점프 중
+        public static string ANIM_CLIP_LAND = "Jump 01 Land";           ///< 착지
+        public static string ANIM_CLIP_FLIP = "Flip";                   ///< 구르기 점프
 
 
         /// Input 
