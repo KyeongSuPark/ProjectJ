@@ -60,13 +60,6 @@ public class R
         public static string ANIM_TRIGGER_LEFT_JUMP = "LeftJump";       ///< Left Jump
         public static string ANIM_TRIGGER_RIGHT_JUMP = "RightJump";     ///< Right Jump
 
-        /// Anim Clip Name
-        public static string ANIM_CLIP_JUMP_START = "Jump 01 Start";    ///< 점프 시작
-        public static string ANIM_CLIP_JUMPPING = "Jump 01 In Air";     ///< 점프 중
-        public static string ANIM_CLIP_LAND = "Jump 01 Land";           ///< 착지
-        public static string ANIM_CLIP_FLIP = "Flip";                   ///< 구르기 점프
-
-
         /// Input 
         public static string INPUT_JUMP = "Jump";               ///< 점프
         public static string INPUT_LEFT_JUMP = "LeftJump";      ///< 왼쪽 점프

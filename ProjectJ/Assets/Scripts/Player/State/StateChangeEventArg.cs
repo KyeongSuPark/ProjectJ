@@ -6,5 +6,5 @@ using System.Collections;
 /// </summary>
 public class StateChangeEventArg
 {
-    public float mTime { get; set; }
+    public PlayerState PreState { get; set; }    ///< 이전 상태
 }

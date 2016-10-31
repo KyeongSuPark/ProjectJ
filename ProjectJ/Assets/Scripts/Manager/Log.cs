@@ -11,6 +11,8 @@ public enum eLogFilter : int
     Normal,         ///< 일반 로그
     State,          ///< 상태
     Jump,           ///< 점프
+    JumpStack,      ///< 점프 스택
+    AnimTrigger,    ///< 애님 트리거
 }   
 
 /// <summary>
@@ -37,7 +39,7 @@ public class Log : MonoBehaviour {
         if (Instance.mFilters[(int)_filter] == false)
             return;
 
-        Debug.LogError(_filter.ToString() + " " + _message);
+        Debug.LogError("[" + _filter.ToString() + "]" + _message);
     }
 
     public static void Print(eLogFilter _filter, object _message)
@@ -45,7 +47,7 @@ public class Log : MonoBehaviour {
         if (Instance.mFilters[(int)_filter] == false)
             return;
 
-        Debug.Log(_filter.ToString() + " " + _message);
+        Debug.Log("[" + _filter.ToString() + "]" + _message);
     }
 
     public static void Print(object _message)

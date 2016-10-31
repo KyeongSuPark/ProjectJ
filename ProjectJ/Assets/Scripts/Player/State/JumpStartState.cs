@@ -3,15 +3,10 @@ using System.Collections;
 
 public class JumpStartState : PlayerState
 {
-    private float m_jumpDuration = 0.0f;       ///< Jump 시간
-
+    private PlayerState m_PreState = null;      ///< 이전 상태
     public JumpStartState(Player _parent)
         : base(_parent)
     {
-        //. 점프 시간은 세개의 애니메이션의 총합
-        m_jumpDuration += m_Parent.GetAnimationLength(R.String.ANIM_CLIP_JUMP_START);
-        m_jumpDuration += m_Parent.GetAnimationLength(R.String.ANIM_CLIP_JUMP_START);
-        m_jumpDuration += m_Parent.GetAnimationLength(R.String.ANIM_CLIP_JUMP_START);
     }
 
     public override ePlayerState GetCode()
@@ -21,18 +16,38 @@ public class JumpStartState : PlayerState
 
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
+        Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_JUMP_START);
         m_Animator.SetTrigger(R.String.ANIM_TRIGGER_JUMP_START);
+        m_PreState = _arg.PreState;
+
+        //. 이전 상태가 측면 점프라면 바로 점프하자.
+        if (GetPreStateCode() == ePlayerState.LeftJump || GetPreStateCode() == ePlayerState.RightJump)
+            m_Parent.Jump();
     }
- 
+
+    public override void Update()
+    {
+    }
+
     public override void OnAnimationEvent(eAnimationEvent _eAnimEvent)
     {
         if(_eAnimEvent == eAnimationEvent.JumpStart)
         {
-            m_Parent.Jump(m_jumpDuration);
+            //. 이전 상태가 Run 일때만 여기서 점프
+            if(GetPreStateCode() == ePlayerState.Run)
+                m_Parent.Jump();
         }
-        else if(_eAnimEvent == eAnimationEvent.AnimationEnd)
+        else if (_eAnimEvent == eAnimationEvent.AnimationEnd)
         {
             m_Parent.ChangeState(ePlayerState.Jumpping);
         }
+    }
+
+    public ePlayerState GetPreStateCode()
+    {
+        if (m_PreState == null)
+            return ePlayerState.None;
+
+        return m_PreState.GetCode();
     }
 }

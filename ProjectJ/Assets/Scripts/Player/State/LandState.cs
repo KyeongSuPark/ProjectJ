@@ -14,17 +14,14 @@ public class LandState : PlayerState {
 
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
+        Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_LAND);
         m_Animator.SetTrigger(R.String.ANIM_TRIGGER_LAND);
     }
 
     public override void Update()
     {
-        
-    }
-
-    public override void OnAnimationEvent(eAnimationEvent _eAnimEvent)
-    {
-        if(_eAnimEvent == eAnimationEvent.AnimationEnd)
+        //. 점프 중이 끝났으니, Run!
+        if (m_Parent.IsJumping() == false)
         {
             m_Parent.ChangeState(ePlayerState.Run);
         }
