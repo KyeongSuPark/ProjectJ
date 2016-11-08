@@ -36,6 +36,9 @@ public class Log : MonoBehaviour {
 
     public static void PrintError(eLogFilter _filter, object _message)
     {
+        if (Instance.mFilters[(int)_filter] == false)
+            return;
+
         Debug.LogError("[" + _filter.ToString() + "]" + _message);
     }
 

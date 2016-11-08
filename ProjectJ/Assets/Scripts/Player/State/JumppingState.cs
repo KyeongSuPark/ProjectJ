@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class JumppingState : PlayerState {
-    private string m_CurrentInput;
     public JumppingState(Player _parent)
         : base(_parent)
     {

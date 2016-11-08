@@ -29,16 +29,10 @@ public class Player : MonoBehaviour {
 
     private bool m_bJumpping = false;        ///< 점프 중인가?
     private Coroutine m_MoveSideStepRoutine; ///< 옆으로 점프 코루틴 변수
-    private Vector3 m_JumpDir;
 
 
-    ///   디버그 정보들
     private float testJumpTime = 0.0f;
-    public GUIText m_DebugInfo;               ///< 디버그 정보
-    public GUIText m_DebugInfo2;              ///< 디버그 정보
-    private float m_MaxSpeed = 0.0f;
-    private float m_MaxHeight = 0.0f;
-
+    public GUIText m_DebugInfo;              ///< 디버그 정보
 
 	// Use this for initialization
 	void Start () {
@@ -49,7 +43,6 @@ public class Player : MonoBehaviour {
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_InternalJumpPos = new Vector3[3];
-        m_Rigidbody.velocity = new Vector3(0, 0, m_MoveSpeed);
 
         for (int i = 0; i < m_JumpPos.Length; ++i)
         {
@@ -68,8 +61,6 @@ public class Player : MonoBehaviour {
 	void Update () {
         if (m_State != null)
             m_State.Update();
-
-        //m_Rigidbody.MovePosition(transform.position + (Vector3.forward * MoveSpeed * Time.deltaTime));
 
         //. 디버그 정보
         String debugText = "";
@@ -108,25 +99,17 @@ public class Player : MonoBehaviour {
 
         if(IsJumping() == true)
         {
-            m_MaxSpeed = Mathf.Max(m_Rigidbody.velocity.y, m_MaxSpeed);
-            m_MaxHeight = Mathf.Max(transform.position.y, m_MaxHeight);
-            if (transform.position.y <= 0.1f && m_Rigidbody.velocity.y <= 0.000f)
+
+            //Log.Print("position : " + testJumpTime + ", velocity : " + m_Rigidbody.velocity.y);
+            if (transform.position.y <= 0.1f && m_Rigidbody.velocity.y <= -0.001f)
             {
                 //. 점프 타임 테스트
                 //Log.Print("Test jump duration : " + testJumpTime);
 
                 SetJumpping(false);
                 m_JumpStack.Clear();
-
-                string debugText = "";
-                debugText += string.Format("max speed : {0}\n", m_MaxSpeed);
-                debugText += string.Format("max height : {0}\n", m_MaxHeight);
-                m_DebugInfo2.text = debugText;
-
-                m_MaxHeight = 0.0f;
-                m_MaxSpeed = 0.0f;
             }
-            //testJumpTime += Time.fixedDeltaTime;
+            testJumpTime += Time.fixedDeltaTime;
         }
     }
 
@@ -348,7 +331,7 @@ public class Player : MonoBehaviour {
         //. 아니면 왼쪽 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(--m_eLane);
 
-        if (IsJumping()&& m_MoveSideStepRoutine != null)
+        if (IsJumping())
             StopCoroutine(m_MoveSideStepRoutine);
 
         m_Rigidbody.AddForce(Vector3.up * GetSideJumpPower());
@@ -370,7 +353,7 @@ public class Player : MonoBehaviour {
         //. 아니면 우측 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(++m_eLane);
 
-        if (IsJumping() && m_MoveSideStepRoutine != null)
+        if (IsJumping())
             StopCoroutine(m_MoveSideStepRoutine);
 
         m_Rigidbody.AddForce(Vector3.up * GetSideJumpPower());
