@@ -6,6 +6,7 @@ public class PlayerState{
     protected Player m_Parent = null;
     protected Rigidbody m_Rigidbody = null;
     protected Animator m_Animator = null;
+    private bool m_bFirstFrameFlag = false;
 
     public PlayerState(Player _parent)
     {
@@ -23,11 +24,24 @@ public class PlayerState{
     {
         return ePlayerState.None; 
     }
+    
+    public virtual void Update() 
+    {
+        if(m_Animator.IsInTransition(0) == false && m_bFirstFrameFlag == false)
+        {
+            OnFirstFrame();
+            m_bFirstFrameFlag = true;
+        }
+    }
+    
+    public virtual void OnStateExit() 
+    {
+        m_bFirstFrameFlag = false;
+    }
 
+    public virtual void OnFirstFrame() { }
     public virtual void OnStateEnter(StateChangeEventArg _arg) { }
-    public virtual void OnStateExit() { }
     //public virtual void PreUpdate() { }
-    public virtual void Update() { }
     public virtual void PostUpdate() { }
 
     public virtual void FixedUpdate() { }

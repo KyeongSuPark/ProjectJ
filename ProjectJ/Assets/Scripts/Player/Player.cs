@@ -186,11 +186,6 @@ public class Player : MonoBehaviour {
         m_State.OnStateExit();
         m_State = newUnitState;
         m_State.OnStateEnter(_arg);
-
-        //. 점프 스택에 추가
-        if (IsJumpState(m_State) == true)
-            PushToJumpStack(m_State);
-
         Log.Print(eLogFilter.State, "change state to " + _eUnitState);
     }
 
@@ -291,7 +286,11 @@ public class Player : MonoBehaviour {
         m_bJumpping = _bJumpping;
 
         if(_bJumpping == true)
+        {
             testJumpTime = 0.0f;
+            if(IsJumpState(m_State))
+                PushToJumpStack(m_State);
+        }
     }
 
     /// <summary>

@@ -16,12 +16,18 @@ public class RunState : PlayerState
     public override void OnStateEnter(StateChangeEventArg _arg) 
     {
         Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_RUN);
-        m_Animator.SetTrigger(R.String.ANIM_TRIGGER_RUN);
         //. Todo : Movespeed에 따라 Anim 재생 속도 바꿔야 할듯..
+    }
+
+    public override void OnFirstFrame()
+    {
+        m_Animator.SetTrigger(R.String.ANIM_TRIGGER_RUN);
     }
 
     public override void Update()
     {
+        base.Update();
+
         m_Rigidbody.MovePosition(m_Parent.transform.position + (m_Parent.transform.forward * m_Parent.MoveSpeed * Time.deltaTime));
 
         if (m_Animator.IsInTransition(0) == false && m_Parent.IsJumping() == false) 

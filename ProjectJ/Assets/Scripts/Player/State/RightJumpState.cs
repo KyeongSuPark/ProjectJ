@@ -15,12 +15,18 @@ public class RightJumpState : PlayerState {
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
         Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_RIGHT_JUMP);
+    }
+
+    public override void OnFirstFrame()
+    {
         m_Animator.SetTrigger(R.String.ANIM_TRIGGER_RIGHT_JUMP);
         m_Parent.RightJump();
     }
 
     public override void Update()
     {
+        base.Update();
+
         //. 점프는 이단 점프 까지만 지원
         if(m_Animator.IsInTransition(0) == false && m_Parent.IsFullJumpStack() == false)
         {

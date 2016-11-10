@@ -15,11 +15,17 @@ public class JumppingState : PlayerState {
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
         Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_JUPPING);
+    }
+
+    public override void OnFirstFrame()
+    {
         m_Animator.SetTrigger(R.String.ANIM_TRIGGER_JUPPING);
     }
 
     public override void Update()
     {
+        base.Update();
+
         //. 점프 중 한번 더 점프!! 이단 점프!
         if(m_Animator.IsInTransition(0) == false && m_Parent.IsFullJumpStack() == false)
         {

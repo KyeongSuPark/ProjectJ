@@ -17,8 +17,12 @@ public class JumpStartState : PlayerState
     public override void OnStateEnter(StateChangeEventArg _arg)
     {
         Log.Print(eLogFilter.AnimTrigger, "set anim trigger " + R.String.ANIM_TRIGGER_JUMP_START);
-        m_Animator.SetTrigger(R.String.ANIM_TRIGGER_JUMP_START);
         m_PreState = _arg.PreState;
+    }
+
+    public override void OnFirstFrame()
+    {
+        m_Animator.SetTrigger(R.String.ANIM_TRIGGER_JUMP_START);
 
         //. 이전 상태가 측면 점프라면 바로 점프하자.
         if (GetPreStateCode() == ePlayerState.LeftJump || GetPreStateCode() == ePlayerState.RightJump)
@@ -27,6 +31,13 @@ public class JumpStartState : PlayerState
 
     public override void Update()
     {
+        base.Update();
+    }
+
+    public override void OnStateExit()
+    {
+        base.OnStateExit();
+        m_PreState = null;
     }
 
     public override void OnAnimationEvent(eAnimationEvent _eAnimEvent)
