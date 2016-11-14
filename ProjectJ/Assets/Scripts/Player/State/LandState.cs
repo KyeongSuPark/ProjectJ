@@ -24,7 +24,6 @@ public class LandState : PlayerState {
 
     public override void Update()
     {
-        base.Update();
         //. 점프 중이 끝났으니, Run!
         if (m_Parent.IsJumping() == false)
         {

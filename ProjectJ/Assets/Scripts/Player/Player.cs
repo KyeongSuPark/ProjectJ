@@ -13,8 +13,13 @@ public class Player : MonoBehaviour {
 
     private Dictionary<ePlayerState, PlayerState> m_StateCache = null;  ///< 플레이어 상태 캐쉬
 
-    public Transform[] m_JumpPos;            ///< 점프 할 위치 (반드시 세개여야 한다) - 이건 외부 셋팅용
     private Vector3[] m_InternalJumpPos;     ///< 점프 할 위치
+    private bool m_Grounded = true;          ///< 지면에 있나?
+    private Coroutine m_MoveSideStepRoutine; ///< 옆으로 점프 코루틴 변수 
+    
+    private float testJumpTime = 0.0f;
+
+    public Transform[] m_JumpPos;            ///< 점프 할 위치 (반드시 세개여야 한다) - 이건 외부 셋팅용
     public float m_MoveSpeed = 3.0f;          ///< 이동속도
 
     public float m_JumpPower;                 ///< 점프 파워
@@ -25,20 +30,15 @@ public class Player : MonoBehaviour {
 
     public float m_SideJumpCoeff = 1.25f;     ///< 사이드 점프 추가 계수
 
-    public Stack<PlayerState> m_JumpStack;   ///< 점프 스택
-
-    private bool m_bJumpping = false;        ///< 점프 중인가?
-    private Coroutine m_MoveSideStepRoutine; ///< 옆으로 점프 코루틴 변수
-
-
-    private float testJumpTime = 0.0f;
+    public Stack<ePlayerState> m_JumpStack;  ///< 점프 스택
     public GUIText m_DebugInfo;              ///< 디버그 정보
+    public Transform m_GroundChecker;        ///< 지면 체크 용 GameObject
 
 	// Use this for initialization
 	void Start () {
 
         m_MoveSideStepRoutine = null;
-        m_JumpStack = new Stack<PlayerState>();
+        m_JumpStack = new Stack<ePlayerState>();
         m_StateCache = new Dictionary<ePlayerState, PlayerState>();
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -59,8 +59,18 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_State != null)
-            m_State.Update();
+        if (m_State != null && m_Animator.IsInTransition(0) == false)
+        {
+            if(m_State.FirstFrameFlag == false)
+            {
+                m_State.OnFirstFrame();
+                m_State.FirstFrameFlag = true;
+            }
+            else
+            {
+                m_State.Update();
+            }
+        }
 
         //. 디버그 정보
         String debugText = "";
@@ -97,33 +107,41 @@ public class Player : MonoBehaviour {
         if (m_State != null)
             m_State.FixedUpdate();
 
-        if(IsJumping() == true)
+        bool newGrounded = false;
+        var colliders = Physics.OverlapSphere(m_GroundChecker.position, 0.1f);      //. Todo 지면 레이어 마스크 추가
+        foreach (var collider in colliders)
         {
-
-            //Log.Print("position : " + testJumpTime + ", velocity : " + m_Rigidbody.velocity.y);
-            if (transform.position.y <= 0.1f && m_Rigidbody.velocity.y <= -0.001f)
+            if(collider.gameObject != gameObject)
             {
-                //. 점프 타임 테스트
-                //Log.Print("Test jump duration : " + testJumpTime);
-
-                SetJumpping(false);
-                m_JumpStack.Clear();
+                newGrounded = true;
+                break;
             }
-            testJumpTime += Time.fixedDeltaTime;
+        }
+
+        if(m_Grounded != newGrounded)
+            OnChangedGrounded(newGrounded);
+    }
+
+    void OnChangedGrounded(bool _newGrounded)
+    {
+        m_Grounded = _newGrounded;
+        if(m_Grounded == true)
+        {
+            m_JumpStack.Clear();
         }
     }
 
     /// <summary>
     /// 점프 스택에 추가 
     /// </summary>
-    void PushToJumpStack(PlayerState _state)
+    void PushToJumpStack(ePlayerState _state)
     {
         //. 점프는 2단계 까지만
         if (IsFullJumpStack() == true)
             return;
 
         m_JumpStack.Push(_state);
-        Log.Print(eLogFilter.JumpStack, string.Format("Push jump stack state[{0}], count[{1}]", _state.GetCode(), m_JumpStack.Count));
+        Log.Print(eLogFilter.JumpStack, string.Format("Push jump stack state[{0}], count[{1}]", _state, m_JumpStack.Count));
     }
 
     /// <summary>
@@ -140,23 +158,9 @@ public class Player : MonoBehaviour {
     /// <summary>
     ///  최근 점프 상태 반환
     /// </summary>
-    public PlayerState PeekJumpStack()
+    public ePlayerState PeekJumpStack()
     {
         return m_JumpStack.Peek();
-    }
-
-    bool IsJumpState(PlayerState _state)
-    {
-        //. 점프가 아닌건 걸러내고
-        switch (_state.GetCode())
-        {
-            case ePlayerState.DoubleJump:
-            case ePlayerState.RightJump:
-            case ePlayerState.LeftJump:
-            case ePlayerState.Jumpping:
-                return true;
-        }
-        return false;
     }
 
     /// <summary>
@@ -274,23 +278,7 @@ public class Player : MonoBehaviour {
     /// </summary>
     public bool IsJumping()
     {
-        return m_bJumpping;
-    }
-
-    /// <summary>
-    ///  점프 중 셋팅
-    /// </summary>
-    private void SetJumpping(bool _bJumpping)
-    {
-        Log.Print("Setjummping : " + _bJumpping);
-        m_bJumpping = _bJumpping;
-
-        if(_bJumpping == true)
-        {
-            testJumpTime = 0.0f;
-            if(IsJumpState(m_State))
-                PushToJumpStack(m_State);
-        }
+        return !m_Grounded;
     }
 
     /// <summary>
@@ -303,7 +291,7 @@ public class Player : MonoBehaviour {
 
         Vector3 target = GetJumpPosition(eLane.Middle);
         m_Rigidbody.AddForce(Vector3.up * GetJumpPower());
-        SetJumpping(true);
+        PushToJumpStack(ePlayerState.JumpStart);
         Log.Print(eLogFilter.Jump, "normal jump lane(" + m_eLane + ")");
     }
     
@@ -314,7 +302,7 @@ public class Player : MonoBehaviour {
 
         Vector3 target = GetJumpPosition(eLane.Middle);
         m_Rigidbody.AddForce(Vector3.up * GetJumpPower());
-        SetJumpping(true);
+        PushToJumpStack(ePlayerState.DoubleJump);
         Log.Print(eLogFilter.Jump, "double jump lane(" + m_eLane + ")");
     }
 
@@ -330,14 +318,13 @@ public class Player : MonoBehaviour {
         //. 아니면 왼쪽 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(--m_eLane);
 
-        if (IsJumping())
+        if (IsJumping() && m_MoveSideStepRoutine != null)
             StopCoroutine(m_MoveSideStepRoutine);
 
         m_Rigidbody.AddForce(Vector3.up * GetSideJumpPower());
         m_MoveSideStepRoutine = StartCoroutine(MoveBySideStep(target, GetJumpDuration()));
-
+        PushToJumpStack(ePlayerState.LeftJump);
         Log.Print(eLogFilter.Jump, string.Format("left jump [lane:{0}], [power:{1}]", m_eLane, GetSideJumpPower()));
-        SetJumpping(true);
     }
 
     public void RightJump()
@@ -352,14 +339,13 @@ public class Player : MonoBehaviour {
         //. 아니면 우측 레인 타겟으로 점프
         Vector3 target = GetJumpPosition(++m_eLane);
 
-        if (IsJumping())
+        if (IsJumping() && m_MoveSideStepRoutine != null)
             StopCoroutine(m_MoveSideStepRoutine);
 
         m_Rigidbody.AddForce(Vector3.up * GetSideJumpPower());
         m_MoveSideStepRoutine = StartCoroutine(MoveBySideStep(target, GetJumpDuration()));
-        
+        PushToJumpStack(ePlayerState.RightJump);
         Log.Print(eLogFilter.Jump, string.Format("right jump [lane:{0}], [power:{1}]", m_eLane, GetSideJumpPower()));
-        SetJumpping(true);
     }
 
     /// <summary>

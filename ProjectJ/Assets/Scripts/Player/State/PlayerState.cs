@@ -24,21 +24,19 @@ public class PlayerState{
     {
         return ePlayerState.None; 
     }
-    
-    public virtual void Update() 
+
+    public bool FirstFrameFlag 
     {
-        if(m_Animator.IsInTransition(0) == false && m_bFirstFrameFlag == false)
-        {
-            OnFirstFrame();
-            m_bFirstFrameFlag = true;
-        }
+        get { return m_bFirstFrameFlag; }
+        set { m_bFirstFrameFlag = value; }
     }
     
-    public virtual void OnStateExit() 
+    public virtual void OnStateExit()
     {
         m_bFirstFrameFlag = false;
     }
 
+    public virtual void Update() {}
     public virtual void OnFirstFrame() { }
     public virtual void OnStateEnter(StateChangeEventArg _arg) { }
     //public virtual void PreUpdate() { }

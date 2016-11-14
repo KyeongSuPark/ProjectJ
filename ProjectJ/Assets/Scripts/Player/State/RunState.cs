@@ -26,8 +26,6 @@ public class RunState : PlayerState
 
     public override void Update()
     {
-        base.Update();
-
         m_Rigidbody.MovePosition(m_Parent.transform.position + (m_Parent.transform.forward * m_Parent.MoveSpeed * Time.deltaTime));
 
         if (m_Animator.IsInTransition(0) == false && m_Parent.IsJumping() == false) 

@@ -25,10 +25,8 @@ public class LeftJumpState : PlayerState {
 
     public override void Update()
     {
-        base.Update();
-
         //. 점프는 이단 점프 까지만 지원
-        if (m_Animator.IsInTransition(0) == false && m_Parent.IsFullJumpStack() == false)
+        if (m_Parent.IsFullJumpStack() == false)
         {
             if (Input.GetButtonDown(R.String.INPUT_JUMP))
             {

@@ -29,11 +29,6 @@ public class JumpStartState : PlayerState
             m_Parent.Jump();
     }
 
-    public override void Update()
-    {
-        base.Update();
-    }
-
     public override void OnStateExit()
     {
         base.OnStateExit();

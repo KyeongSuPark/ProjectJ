@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\ClearRagdolls.cs" />
     <Compile Include="Assets\Scripts\Etc\R.cs" />
     <Compile Include="Assets\Scripts\Manager\Log.cs" />
+    <Compile Include="Assets\Scripts\Manager\ObjectManager.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\State\DoubleJumpState.cs" />
     <Compile Include="Assets\Scripts\Player\State\JumpStartState.cs" />
