@@ -69,10 +69,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EG - Align Editor\Examples\Scripts\DisplayInstructions.cs" />
+    <Compile Include="Assets\EG - Align Editor\Examples\Scripts\ObjectFallOnTerrain.cs" />
+    <Compile Include="Assets\EG - Align Editor\Examples\Scripts\RotateAroundCenter.cs" />
+    <Compile Include="Assets\EG - Align Editor\Examples\Scripts\RotateCamera.cs" />
+    <Compile Include="Assets\EG - Align Editor\Examples\Scripts\SpawnObject.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\AlignManager.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\BasicExtents.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\CameraManager.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\ColliderExtents.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\DistributionManager.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\ExtentsGetter.cs" />
+    <Compile Include="Assets\EG - Align Editor\Plugins\RendererExtents.cs" />
     <Compile Include="Assets\Scripts\ClearRagdolls.cs" />
+    <Compile Include="Assets\Scripts\Data\AccountData.cs" />
+    <Compile Include="Assets\Scripts\Data\Social\DB.cs" />
     <Compile Include="Assets\Scripts\Etc\R.cs" />
+    <Compile Include="Assets\Scripts\Etc\ScreenResolutionSetter.cs" />
+    <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\Log.cs" />
+    <Compile Include="Assets\Scripts\Manager\LoginManager.cs" />
     <Compile Include="Assets\Scripts\Manager\ObjectManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\Oracle.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\State\DoubleJumpState.cs" />
     <Compile Include="Assets\Scripts\Player\State\JumpStartState.cs" />
@@ -85,11 +103,19 @@
     <Compile Include="Assets\Scripts\Player\State\StateChangeEventArg.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ToonCharacter.cs" />
+    <Compile Include="Assets\Scripts\UI\FadeInOut.cs" />
+    <Compile Include="Assets\Scripts\UI\Lobby\LobbyUIInitializer.cs" />
+    <Compile Include="Assets\Scripts\UI\Lobby\StageButton.cs" />
+    <Compile Include="Assets\Scripts\UI\Lobby\StageButtonData.cs" />
+    <Compile Include="Assets\Scripts\UI\SampleButton.cs" />
+    <Compile Include="Assets\Scripts\UI\ShopScrollList.cs" />
+    <Compile Include="Assets\Scripts\UI\SimpleObjectPool.cs" />
     <Compile Include="Assets\Toon Character Pack\Scripts\AnimTriggers.cs" />
     <Compile Include="Assets\Toon Character Pack\Scripts\BotControlScript.cs" />
     <Compile Include="Assets\Toon Character Pack\Scripts\SmoothCameraOrbit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\EG - Align Editor\readme.txt" />
     <None Include="Assets\Editor\Doxygen\ReadMe.txt" />
     <None Include="Assets\Editor\Doxygen\Resources\BaseDoxyfile.txt" />
     <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />

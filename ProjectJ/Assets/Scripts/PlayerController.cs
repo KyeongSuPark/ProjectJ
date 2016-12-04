@@ -153,7 +153,6 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        Debug.Log("jump!!");
         GetComponent<Rigidbody>().AddForce(Vector3.up * jumpPower);
     }
 

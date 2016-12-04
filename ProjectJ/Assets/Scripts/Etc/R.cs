@@ -36,6 +36,14 @@ public enum eAnimationEvent
 }
 
 /// <summary>
+///  Sns 타입
+/// </summary>
+public enum eSocialPlatform
+{
+    Facebook,       ///< 페이스북
+}
+
+/// <summary>
 /// 전역 상수값들 선언
 /// 내부 클래스는 카테고리처럼 사용
 /// </summary>
@@ -64,5 +72,13 @@ public class R
         public static string INPUT_JUMP = "Jump";               ///< 점프
         public static string INPUT_LEFT_JUMP = "LeftJump";      ///< 왼쪽 점프
         public static string INPUT_RIGHT_JUMP = "RightJump";    ///< 오른쪽 점프
+
+        /// Tag
+        public static string TAG_OBSTACLE = "Obstacle";         ///< 장애물
+
+        /// Scene
+        public static string SCENE_LOGIN = "Login";             ///< 로그인
+        public static string SCENE_LOBBY = "Lobby";             ///< 로비
+        public static string SCENE_LV1 = "Lv1";                 ///< Lv1
     }
 }

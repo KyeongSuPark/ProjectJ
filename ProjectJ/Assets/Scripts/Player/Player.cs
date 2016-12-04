@@ -82,6 +82,17 @@ public class Player : MonoBehaviour {
         m_DebugInfo.text = debugText;
 	}
 
+    void OnCollisionEnter(Collision _col)
+    {
+        if (_col.gameObject == null)
+            return;
+
+        if(_col.gameObject.tag == R.String.TAG_OBSTACLE)
+        {
+            Debug.Log("충돌했다");
+        }
+    }
+
     string GetAnimStateName(AnimatorStateInfo _state)
     {
         if (_state.IsName(R.String.ANIM_TRIGGER_RUN))
@@ -120,6 +131,8 @@ public class Player : MonoBehaviour {
 
         if(m_Grounded != newGrounded)
             OnChangedGrounded(newGrounded);
+
+        m_Rigidbody.MovePosition(transform.position + (transform.forward * MoveSpeed * Time.deltaTime));
     }
 
     void OnChangedGrounded(bool _newGrounded)
