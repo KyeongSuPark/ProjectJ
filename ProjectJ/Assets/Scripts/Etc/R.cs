@@ -7,6 +7,7 @@ using System.Collections;
 public enum ePlayerState
 {
     None,           ///< 아무 상태도 아님
+    Idle,           ///< 대기 상태
     Run,            ///< 달리는 상태
     JumpStart,      ///< 점프 시작 상태
     Jumpping,       ///< 점프 중인 상태
@@ -67,6 +68,7 @@ public class R
         public static string ANIM_TRIGGER_DOUBLE_JUMP = "DoubleJump";   ///< Double Jump
         public static string ANIM_TRIGGER_LEFT_JUMP = "LeftJump";       ///< Left Jump
         public static string ANIM_TRIGGER_RIGHT_JUMP = "RightJump";     ///< Right Jump
+        public static string ANIM_TRIGGER_IDLE = "Idle";                ///< Idle
 
         /// Input 
         public static string INPUT_JUMP = "Jump";               ///< 점프
@@ -79,6 +81,6 @@ public class R
         /// Scene
         public static string SCENE_LOGIN = "Login";             ///< 로그인
         public static string SCENE_LOBBY = "Lobby";             ///< 로비
-        public static string SCENE_LV1 = "Lv1";                 ///< Lv1
+        public static string SCENE_GAME = "Game";               ///< Lv
     }
 }

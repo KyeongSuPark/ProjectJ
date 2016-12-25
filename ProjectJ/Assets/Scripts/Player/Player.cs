@@ -34,9 +34,8 @@ public class Player : MonoBehaviour {
     public GUIText m_DebugInfo;              ///< 디버그 정보
     public Transform m_GroundChecker;        ///< 지면 체크 용 GameObject
 
-	// Use this for initialization
-	void Start () {
-
+    void Awake()
+    {
         m_MoveSideStepRoutine = null;
         m_JumpStack = new Stack<ePlayerState>();
         m_StateCache = new Dictionary<ePlayerState, PlayerState>();
@@ -49,11 +48,10 @@ public class Player : MonoBehaviour {
             Transform posTransform = m_JumpPos[i];
             m_InternalJumpPos[i] = posTransform.position - transform.position;
         }
+    }
 
-        //. 시작 부터 달리는 상태
-        m_State = new RunState(this);
-        m_StateCache.Add(m_State.GetCode(), m_State);
-
+	// Use this for initialization
+	void Start () {
         DisableRagdoll();
 	}
 	
@@ -72,14 +70,18 @@ public class Player : MonoBehaviour {
             }
         }
 
-        //. 디버그 정보
-        String debugText = "";
-        AnimatorStateInfo state = m_Animator.GetCurrentAnimatorStateInfo(0);
-        debugText += string.Format("Anim state :{0}\n", GetAnimStateName(state));
-        debugText += string.Format("Player state :{0}\n", m_State.GetCode());
-        debugText += string.Format("IsFullStack :{0}\n", IsFullJumpStack());
-        debugText += string.Format("IsJumpping :{0}\n", IsJumping());
-        m_DebugInfo.text = debugText;
+        if(m_DebugInfo != null)
+        {
+            //. 디버그 정보
+            String debugText = "";
+            AnimatorStateInfo state = m_Animator.GetCurrentAnimatorStateInfo(0);
+            debugText += string.Format("Anim state :{0}\n", GetAnimStateName(state));
+            debugText += string.Format("Player state :{0}\n", m_State.GetCode());
+            debugText += string.Format("IsFullStack :{0}\n", IsFullJumpStack());
+            debugText += string.Format("IsJumpping :{0}\n", IsJumping());
+            m_DebugInfo.text = debugText;
+        }
+        
 	}
 
     void OnCollisionEnter(Collision _col)
@@ -89,7 +91,7 @@ public class Player : MonoBehaviour {
 
         if(_col.gameObject.tag == R.String.TAG_OBSTACLE)
         {
-            Debug.Log("충돌했다");
+            GameManager.Instance.OnCollideObstacle();
         }
     }
 
@@ -109,6 +111,8 @@ public class Player : MonoBehaviour {
             return R.String.ANIM_TRIGGER_LEFT_JUMP;
         else if (_state.IsName(R.String.ANIM_TRIGGER_RIGHT_JUMP))
             return R.String.ANIM_TRIGGER_RIGHT_JUMP;
+        else if (_state.IsName(R.String.ANIM_TRIGGER_IDLE))
+            return R.String.ANIM_TRIGGER_IDLE;
 
         return "None";
     }
@@ -132,7 +136,8 @@ public class Player : MonoBehaviour {
         if(m_Grounded != newGrounded)
             OnChangedGrounded(newGrounded);
 
-        m_Rigidbody.MovePosition(transform.position + (transform.forward * MoveSpeed * Time.deltaTime));
+        if(m_State.GetCode() != ePlayerState.Idle)
+            m_Rigidbody.MovePosition(transform.position + (transform.forward * MoveSpeed * Time.deltaTime));
     }
 
     void OnChangedGrounded(bool _newGrounded)
@@ -181,10 +186,7 @@ public class Player : MonoBehaviour {
     /// </summary>
     public void ChangeState(ePlayerState _eUnitState, StateChangeEventArg _arg = null)
     {
-        if (m_State == null)
-            return;
-
-        if (m_State.GetCode() == _eUnitState)
+        if (m_State != null && m_State.GetCode() == _eUnitState)
             return;
 
         //. 캐쉬 된게 있는지 검사
@@ -200,7 +202,9 @@ public class Player : MonoBehaviour {
             m_StateCache.Add(newUnitState.GetCode(), newUnitState);
         }
 
-        m_State.OnStateExit();
+        if(m_State != null)
+            m_State.OnStateExit();
+
         m_State = newUnitState;
         m_State.OnStateEnter(_arg);
         Log.Print(eLogFilter.State, "change state to " + _eUnitState);
@@ -221,6 +225,7 @@ public class Player : MonoBehaviour {
             case ePlayerState.Land: return new LandState(this);
             case ePlayerState.RightJump: return new RightJumpState(this);
             case ePlayerState.LeftJump: return new LeftJumpState(this);
+            case ePlayerState.Idle: return new IdleState(this);
         }
 
         Log.PrintError(eLogFilter.Normal, "invalid parameter (CreateUnitState)");

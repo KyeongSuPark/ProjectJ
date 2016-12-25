@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
-using DB;
 using System.Collections.Generic;
 
 /// <summary>
 /// 계정 데이터
 /// </summary>
 public class AccountData {
-
-    private List<Stage> m_Stages;   ///< 내 스테이 정보
+    private uint m_AccountId;           ///< 계정 아이디
+    private eSocialPlatform SocialType; ///< Sns Type
+    private List<Stage> m_Stages;       ///< 내 스테이지 정보
     
     public AccountData()
     {
         m_Stages = new List<Stage>();
+    }
+
+    public List<Stage> GetStageList()
+    {
+        return m_Stages;
     }
 
     public void CreateDummyStageData()

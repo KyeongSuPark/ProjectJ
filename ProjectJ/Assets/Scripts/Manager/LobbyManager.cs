@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour {
     public static LobbyManager Instance = null;
-
-    private AccountData m_AccountData;      ///< 계정 데이터
+    public GameObject m_Player;
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +13,8 @@ public class LobbyManager : MonoBehaviour {
         else
             Debug.LogError("Object manager has two instance");
 
-        m_AccountData = new AccountData();
+        Player player = m_Player.GetComponent<Player>();
+        player.ChangeState(ePlayerState.Idle);
 	}
 	
 	// Update is called once per frame
@@ -21,8 +22,9 @@ public class LobbyManager : MonoBehaviour {
 	
 	}
 
-    public void OnClicked_StageButton(StageButtonData _stageData)
+    public void OnClicked_StageButton(Stage _stageData)
     {
-        Debug.Log("버튼 눌렸다 " + _stageData.GetIndex());
+        string sceneName = string.Format("{0}_Lv_{1}", R.String.SCENE_GAME, _stageData.Id);
+        SceneManager.LoadScene(sceneName);
     }
 }
