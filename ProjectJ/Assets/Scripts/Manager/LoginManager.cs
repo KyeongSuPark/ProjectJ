@@ -16,7 +16,7 @@ public class LoginManager : MonoBehaviour {
 
     public void OnClickLoginButton_Facebook()
     {
-        SceneManager.LoadScene(R.String.SCENE_LOBBY);
+        FBManager.Instance.FBLogin();   
     }
 
     public void OnClickLoginButton_KaKao()

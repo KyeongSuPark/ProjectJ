@@ -67,6 +67,12 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook.Unity">
+      <HintPath>Assets\FacebookSDK\Plugins\Facebook.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.IOS">
+      <HintPath>Assets\FacebookSDK\Plugins\iOS\Facebook.Unity.IOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\EG - Align Editor\Examples\Scripts\DisplayInstructions.cs" />
@@ -81,11 +87,25 @@
     <Compile Include="Assets\EG - Align Editor\Plugins\DistributionManager.cs" />
     <Compile Include="Assets\EG - Align Editor\Plugins\ExtentsGetter.cs" />
     <Compile Include="Assets\EG - Align Editor\Plugins\RendererExtents.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\ConsoleBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\LogView.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\MenuBase.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AccessTokenMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppEvents.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppInvites.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppLinks.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\AppRequests.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\DialogShare.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GameGroups.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\GraphRequest.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\MainMenu.cs" />
+    <Compile Include="Assets\FacebookSDK\Examples\Scripts\SubMenus\Pay.cs" />
     <Compile Include="Assets\Scripts\ClearRagdolls.cs" />
     <Compile Include="Assets\Scripts\Data\AccountData.cs" />
     <Compile Include="Assets\Scripts\Data\Social\DB.cs" />
     <Compile Include="Assets\Scripts\Etc\R.cs" />
     <Compile Include="Assets\Scripts\Etc\ScreenResolutionSetter.cs" />
+    <Compile Include="Assets\Scripts\FBManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\Log.cs" />
@@ -120,6 +140,7 @@
     <None Include="Assets\EG - Align Editor\readme.txt" />
     <None Include="Assets\Editor\Doxygen\ReadMe.txt" />
     <None Include="Assets\Editor\Doxygen\Resources\BaseDoxyfile.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-Basic.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />

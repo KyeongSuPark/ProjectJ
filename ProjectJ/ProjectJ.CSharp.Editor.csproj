@@ -100,6 +100,15 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook.Unity">
+      <HintPath>Assets\FacebookSDK\Plugins\Facebook.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.Editor">
+      <HintPath>Assets\FacebookSDK\Plugins\Editor\Facebook.Unity.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Facebook.Unity.IOS">
+      <HintPath>Assets\FacebookSDK\Plugins\iOS\Facebook.Unity.IOS.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-UnityScript">
       <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
     </Reference>
@@ -125,6 +134,7 @@
     <None Include="Assets\EG - Align Editor\readme.txt" />
     <None Include="Assets\Editor\Doxygen\ReadMe.txt" />
     <None Include="Assets\Editor\Doxygen\Resources\BaseDoxyfile.txt" />
+    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Toon Character Pack\Shaders\Projector Multiply.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-Basic.shader" />
     <None Include="Assets\Toon Character Pack\Shaders\Toony-BasicOutline-Transparent.shader" />
