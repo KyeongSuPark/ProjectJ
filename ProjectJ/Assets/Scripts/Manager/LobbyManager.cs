@@ -18,13 +18,13 @@ public class LobbyManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () {    
 	
 	}
 
     public void OnClicked_StageButton(Stage _stageData)
     {
-        string sceneName = string.Format("{0}_Lv_{1}", R.String.SCENE_GAME, _stageData.Id);
+        string sceneName = string.Format("{0}_Lv_{1}", R.String.SCENE_GAME, _stageData.Index);
         SceneManager.LoadScene(sceneName);
     }
 }

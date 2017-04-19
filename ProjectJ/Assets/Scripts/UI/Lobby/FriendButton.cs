@@ -8,7 +8,7 @@ public class FriendButton : MonoBehaviour {
     public Text m_RankLabel;    ///< 순위 라벨
     public Text m_PointLabel;   ///< 점수 라벨
 
-    private Friend m_Data;      ///< 친구 데이터
+    private UserData m_Data;      ///< 친구 데이터
 
     // Use this for initialization
     void Start()
@@ -17,13 +17,13 @@ public class FriendButton : MonoBehaviour {
         //btn.onClick.AddListener(OnClicked_StageButton);
     }
 
-    public void SetData(Friend _data)
+    public void SetData(UserData _data)
     {
         m_Data = _data;
         Refresh();
     }
 
-    public Friend GetData()
+    public UserData GetData()
     {
         return m_Data;
     }
@@ -34,8 +34,23 @@ public class FriendButton : MonoBehaviour {
     private void Refresh()
     {
         m_NameLabel.text = m_Data.Name;
-        m_PointLabel.text = m_Data.Point.ToString();
+        m_PointLabel.text = m_Data.Score.ToString();
         m_RankLabel.text = m_Data.Rank.ToString();
+
+        if(m_Image.sprite == null)
+        {
+            ISocialPlatform sf = Oracle.Instance.GetSocialPlatform();
+            if (sf != null)
+            {
+                sf.QueryPicture(m_Data.Id, delegate(Texture2D _pic)
+                {
+                    if (_pic)
+                    {
+                        m_Image.sprite = Sprite.Create(_pic, new Rect(0, 0, 64, 64), new Vector2(0, 0));
+                    }
+                });
+            }
+        }
     }
 
     //public void OnClicked_StageButton()

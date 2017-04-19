@@ -45,6 +45,16 @@ public enum eSocialPlatform
 }
 
 /// <summary>
+///  친구와 나와의 관계
+/// </summary>
+public enum eFriendRelation
+{
+    Invite,     ///< 내가 초대한 상태
+    Invited,    ///< 내가 초대당한 상태
+    Friend,     ///< 서로 친구 상태
+}
+
+/// <summary>
 /// 전역 상수값들 선언
 /// 내부 클래스는 카테고리처럼 사용
 /// </summary>
@@ -56,6 +66,9 @@ public class R
     public class Const
     {
         public static int INDEX_NONE = -1;
+
+        public static int MAX_RANK_COUNT = 300;         ///< 최대 몇 위까지 있나 
+        public static int MAX_RANK_LIST = 15;           ///< 최대 까지 랭킹 리스트에 보여줄건가
     }
 
     public class String

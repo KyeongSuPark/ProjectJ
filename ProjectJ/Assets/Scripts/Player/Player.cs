@@ -57,16 +57,31 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_State != null && m_Animator.IsInTransition(0) == false)
+        if (m_State != null)
         {
-            if(m_State.FirstFrameFlag == false)
+            //. 변환 중에는 state가 꼬일수 있으므로 처리하지 않는다.
+            if (m_Animator.IsInTransition(0) == false)
             {
-                m_State.OnFirstFrame();
-                m_State.FirstFrameFlag = true;
+                if (m_State.FirstFrameFlag == false)
+                {
+                    m_State.OnFirstFrame();
+                    m_State.FirstFrameFlag = true;
+                }
+                else
+                {
+                    m_State.Update();
+                }
             }
-            else
+
+            //. Jumpping은 중요 하므로 Input을 예약해둔다.
+            if(m_State.GetCode() == ePlayerState.Jumpping)
             {
-                m_State.Update();
+                if (Input.GetButtonDown(R.String.INPUT_JUMP))
+                    m_State.ReserveInput(R.String.INPUT_JUMP);
+                else if (Input.GetButtonDown(R.String.INPUT_LEFT_JUMP))
+                    m_State.ReserveInput(R.String.INPUT_LEFT_JUMP);
+                else if (Input.GetButtonDown(R.String.INPUT_RIGHT_JUMP))
+                    m_State.ReserveInput(R.String.INPUT_RIGHT_JUMP);
             }
         }
 
@@ -79,6 +94,8 @@ public class Player : MonoBehaviour {
             debugText += string.Format("Player state :{0}\n", m_State.GetCode());
             debugText += string.Format("IsFullStack :{0}\n", IsFullJumpStack());
             debugText += string.Format("IsJumpping :{0}\n", IsJumping());
+            debugText += string.Format("KeyInput : {0}\n", Input.GetButtonDown(R.String.INPUT_JUMP));
+            debugText += string.Format("IsTransition : {0}\n", m_Animator.IsInTransition(0));
             m_DebugInfo.text = debugText;
         }
         

@@ -43,6 +43,7 @@ public class PlayerState{
     public virtual void PostUpdate() { }
 
     public virtual void FixedUpdate() { }
+    public virtual void ReserveInput(string _input) { }
 
     public virtual void OnAnimationEvent(eAnimationEvent _eAnimEvent) { }
 }

@@ -3,20 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// 친구 데이터
+/// 유저 데이터
 /// </summary>
-public class Friend
+public class UserData
 {
-    public uint Id { get; set; }                     ///< 고유 아이디 (Sns Type마다 다를수도 있다)
+    public ulong Id { get; set; }                    ///< 고유 아이디 
     public string Name { get; set; }                 ///< 이름 또는 계정명
-    public int Rank { get; set; }                    ///< 순위
-    public int Point { get; set; }                   ///< 전체 점수
-
+    public uint Rank { get; set; }                   ///< 순위
+    public uint Score { get; set; }                  ///< 전체 점수
+    public eSocialPlatform eSnsType { get; set; }    ///< 소셜 플랫폼
+    public ulong SnsId { get; set; }                 ///< 소셜 플랫폼 Id
+    public Coin Coin { get; set; }                   ///< 코인
     public List<Stage> Stages { get; set; }
-    public Friend()
+    public UserData()
     {
         Stages = new List<Stage>();
     }
+}
+
+/// <summary>
+///  친구 관계
+/// </summary>
+public class FriendRelation
+{
+    public ulong FirendUserId;          ///< 친구 UserId
+    public eFriendRelation Relation;    ///< 친구 요청 상태
+}
+
+/// <summary>
+/// 코인
+/// - 오락실에서 넣었던 그 코인
+/// </summary>
+public class Coin
+{
+    public uint Qnty;               ///< 현재 수량
+    public Time RechargeRemainTime; ///< 다음 충전까지 남은 시간
 }
 
 /// <summary>
@@ -24,61 +45,46 @@ public class Friend
 /// </summary>
 public class Stage
 {
-    public uint Id { get; set; }            ///< Stage Id
-    public int TryCount { get; set; }       ///< 시도 횟수 (성공할때 까지)
+    public uint Index { get; set; }         ///< Stage Index
+    public uint TryCount { get; set; }      ///< 시도 횟수 (성공할때 까지)
     public bool Success { get; set; }       ///< 성공 했냐?
+    public uint Score { get; set; }         ///< 스테이지 개별 Score
     public string CheerMsg { get; set; }    ///< 응원 메시지
-}
-
-/// <summary>
-///  친구 리스트 인터페이스
-/// </summary>
-public interface IFriendList
-{
-    /// <summary>
-    ///  sns 로 데이터 읽어 와서 친구 리스트 구성
-    /// </summary>
-    void Parse(string _json);
-
-    /// <summary>
-    ///  친구 리스트 반환
-    /// </summary>
-    List<Friend> GetList();
 }
 
 /// <summary>
 ///  더미 데이터
 /// </summary>
-public class DummyFriedList : IFriendList
+public class DummyFriendList
 {
-    private List<Friend> m_Friends = new List<Friend>();
+    private List<UserData> m_Friends = new List<UserData>();
 
-    public DummyFriedList()
+    public DummyFriendList()
     {
         //. 더미 데이터 
         Stage stage1 = new Stage();
-        stage1.Id = 1;
+        stage1.Index = 1;
         stage1.TryCount = 15;
         stage1.CheerMsg = "경수야 힘을 내야지";
 
         Stage stage2 = new Stage();
-        stage2.Id = 2;
+        stage2.Index = 2;
         stage2.TryCount = 10;
         stage2.CheerMsg = "경수야 힘을 내야지2";
 
         Stage stage3 = new Stage();
-        stage3.Id = 3;
+        stage3.Index = 3;
         stage3.TryCount = 2;
         stage3.CheerMsg = "2번만에 깼다 ㅋㅋ";
 
-        Friend friend1 = new Friend();
+        UserData friend1 = new UserData();
         friend1.Id = 1;
         friend1.Name = "우하나";
         friend1.Stages.Add(stage1);
         friend1.Stages.Add(stage2);
         friend1.Stages.Add(stage3);
 
-        Friend friend2 = new Friend();
+        UserData friend2 = new UserData();
         friend2.Id = 2;
         friend2.Name = "이다솜";
         friend2.Stages.Add(stage1);
@@ -93,7 +99,7 @@ public class DummyFriedList : IFriendList
     {
     }
 
-    public List<Friend> GetList()
+    public List<UserData> GetList()
     {
         return m_Friends;
     }

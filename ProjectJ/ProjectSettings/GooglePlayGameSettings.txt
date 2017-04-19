@@ -1,0 +1,10 @@
+lastUpgrade=00936
+proj.pluginVersion=0.9.36
+proj.AppId=979847170258
+and.BundleId=com.GrayGames.AwesomeJump
+proj.classDir=Assets
+proj.ConstantsClassName=AwsomeGame.GPGS
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e979847170258%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.GrayGames.AwesomeJump%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_stageachievement%22%3eCgkI0pHFm8IcEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_2%22%3eCgkI0pHFm8IcEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_3%22%3eCgkI0pHFm8IcEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_4%22%3eCgkI0pHFm8IcEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_5%22%3eCgkI0pHFm8IcEAIQBQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
+and.ClientId=979847170258-d37740a4dhsqnv4820msp2q97tg3tl7n.apps.googleusercontent.com
+proj.requireGPlus=false
+android.SetupDone=true

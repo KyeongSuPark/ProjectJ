@@ -13,6 +13,7 @@ public enum eLogFilter : int
     Jump,           ///< 점프
     JumpStack,      ///< 점프 스택
     AnimTrigger,    ///< 애님 트리거
+    GPGS,           ///< Google play game service
 }   
 
 /// <summary>

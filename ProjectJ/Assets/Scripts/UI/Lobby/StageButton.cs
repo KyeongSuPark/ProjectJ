@@ -31,7 +31,7 @@ public class StageButton : MonoBehaviour {
     /// </summary>
     private void Refresh()
     {
-        m_IndexLabel.text = m_Data.Id.ToString();
+        m_IndexLabel.text = m_Data.Index.ToString();
         m_Image.color = m_Data.Success ? Color.white : Color.cyan;
     }
 
