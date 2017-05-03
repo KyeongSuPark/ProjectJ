@@ -95,5 +95,9 @@ public class R
         public static string SCENE_LOGIN = "Login";             ///< 로그인
         public static string SCENE_LOBBY = "Lobby";             ///< 로비
         public static string SCENE_GAME = "Game";               ///< Lv
+
+        /// Path Name
+        public static string COLOR_MODE_PATH = "ColorModePath"; ///< 컬러 모드 변경 Path
+        public static string NORMAL_MODE_PATH = "NormalModePath";///< 노멀 모드 변경 Path
     }
 }
