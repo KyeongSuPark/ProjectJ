@@ -98,7 +98,7 @@ PlayerSettings:
   virtualRealitySupported: 0
   productGUID: fdfc40d22da6c52468e878e664531739
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 18
+  AndroidMinSdkVersion: 16
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
@@ -160,9 +160,9 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/ddoddo/.android/debug.keystore
-  AndroidKeyaliasName: androiddebugkey
-  AndroidTVCompatibility: 1
+  AndroidKeystoreName: C:/Unity Project/ProjectJ/ProjectJ/debug.keystore
+  AndroidKeyaliasName: projectj
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
   m_AndroidBanners:

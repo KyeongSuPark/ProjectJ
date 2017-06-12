@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c7646609266c04bada4c146f5feb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mFilters: []
+  mFilters: 
 --- !u!1 &499272282
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ Prefab:
       objectReference: {fileID: 499272283}
     - target: {fileID: 11475736, guid: 45dc816d50c1b9846bac74e19b29515c, type: 2}
       propertyPath: m_MoveSpeed
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 433694, guid: 45dc816d50c1b9846bac74e19b29515c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1248,11 +1248,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11475736, guid: 45dc816d50c1b9846bac74e19b29515c, type: 2}
       propertyPath: m_JumpPower
-      value: 250
+      value: 550
       objectReference: {fileID: 0}
     - target: {fileID: 11475736, guid: 45dc816d50c1b9846bac74e19b29515c, type: 2}
       propertyPath: m_SecondJumpPower
-      value: 200
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 11475736, guid: 45dc816d50c1b9846bac74e19b29515c, type: 2}
       propertyPath: m_JumpDuration
@@ -1850,34 +1850,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1456600470
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1456600471}
-  m_Layer: 8
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1456600471
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1456600470}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 791390533}
-  m_RootOrder: 6
 --- !u!1001 &1459762893
 Prefab:
   m_ObjectHideFlags: 0
@@ -1887,7 +1859,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 474516, guid: 2b696fae00492f346b6be8f8e7cf62d1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.12
       objectReference: {fileID: 0}
     - target: {fileID: 474516, guid: 2b696fae00492f346b6be8f8e7cf62d1, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1944,6 +1916,9 @@ GameObject:
   - 124: {fileID: 1494083338}
   - 92: {fileID: 1494083337}
   - 81: {fileID: 1494083336}
+  - 114: {fileID: 1494083341}
+  - 114: {fileID: 1494083343}
+  - 114: {fileID: 1494083342}
   m_Layer: 0
   m_Name: _Camera
   m_TagString: MainCamera
@@ -2019,6 +1994,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 791390533}
   m_RootOrder: 5
+--- !u!114 &1494083341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1494083335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: ColorModePath
+  pathColor: {r: 0, g: 1, b: 1, a: 1}
+  nodes:
+  - {x: -4.63, y: 2.21, z: -6.31}
+  - {x: 6.99, y: 0, z: -2.7869577}
+  - {x: 0, y: 0, z: 0}
+  nodeCount: 3
+  initialized: 1
+  initialName: New Path 1
+  pathVisible: 1
+--- !u!114 &1494083342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1494083335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efab9809fffec5b438c95eb0b1d63229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LookTarget: {fileID: 791390533}
+--- !u!114 &1494083343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1494083335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathName: NormalModePath
+  pathColor: {r: 1, g: 0, b: 0.22758627, a: 1}
+  nodes:
+  - {x: 0, y: 0, z: 0}
+  - {x: 6.99, y: 0, z: -2.786}
+  - {x: -4.63, y: 2.21, z: -6.31}
+  nodeCount: 3
+  initialized: 1
+  initialName: New Path 1
+  pathVisible: 1
 --- !u!4 &1517111603 stripped
 Transform:
   m_PrefabParentObject: {fileID: 474516, guid: 2b696fae00492f346b6be8f8e7cf62d1, type: 2}
@@ -2252,7 +2281,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 15.0187, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 791390533}
-  m_RootOrder: 7
+  m_RootOrder: 6
 --- !u!108 &1953815092
 Light:
   m_ObjectHideFlags: 0

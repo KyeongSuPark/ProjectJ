@@ -11,25 +11,25 @@ EditorBuildSettings:
     path: Assets/Scene/Lobby.unity
   - enabled: 1
     path: Assets/Scene/Game_Lv_1.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/AccessTokenMenu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/AppEvents.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/AppInvites.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/AppLinks.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/AppRequests.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/DialogShare.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/GameGroups.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/GraphRequest.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/LogView.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/MainMenu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/FacebookSDK/Examples/Pay.unity
