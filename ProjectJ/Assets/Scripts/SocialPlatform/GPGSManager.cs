@@ -34,10 +34,10 @@ public class GPGSManager : MonoBehaviour {
     {
         bLogin = false;
 
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.Activate();
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
+        //PlayGamesPlatform.InitializeInstance(config);
+        //PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.DebugLogEnabled = true;
     }
  
     /// <summary>
@@ -64,12 +64,12 @@ public class GPGSManager : MonoBehaviour {
     /// </summary>
     public void LogoutGPGS()
     {
-        // 로그인이 되어 있으면
-        if (Social.localUser.authenticated)
-        {
-            ((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
-            bLogin = false;
-        }
+        //// 로그인이 되어 있으면
+        //if (Social.localUser.authenticated)
+        //{
+        //    ((GooglePlayGames.PlayGamesPlatform)Social.Active).SignOut();
+        //    bLogin = false;
+        //}
     }
  
     /// <summary>
@@ -98,17 +98,17 @@ public class GPGSManager : MonoBehaviour {
 
     public void SaveGame(string _fileName)
     {
-        ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
-        if (savedGame == null)
-        {
-            Log.PrintError(eLogFilter.GPGS, "SaveGame >> SavedGameClient is null");
-            return;
-        }
+        //ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
+        //if (savedGame == null)
+        //{
+        //    Log.PrintError(eLogFilter.GPGS, "SaveGame >> SavedGameClient is null");
+        //    return;
+        //}
 
-        savedGame.OpenWithAutomaticConflictResolution(_fileName,
-                    DataSource.ReadCacheOrNetwork,
-                    ConflictResolutionStrategy.UseLongestPlaytime,
-                    OpenGameToSaveCallBack);
+        //savedGame.OpenWithAutomaticConflictResolution(_fileName,
+        //            DataSource.ReadCacheOrNetwork,
+        //            ConflictResolutionStrategy.UseLongestPlaytime,
+        //            OpenGameToSaveCallBack);
     }
 
     private void OpenGameToSaveCallBack(SavedGameRequestStatus _status, ISavedGameMetadata _game)
@@ -125,23 +125,23 @@ public class GPGSManager : MonoBehaviour {
 
     private void SaveGame(ISavedGameMetadata _game, byte[] _data, TimeSpan _totalPlaytime)
     {
-        ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
-        SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
-        builder = builder.WithUpdatedPlayedTime(_totalPlaytime).WithUpdatedDescription("Saved game at " + DateTime.Now);
-        /*
-        if (savedImage != null)
-        {
-            // This assumes that savedImage is an instance of Texture2D
-            // and that you have already called a function equivalent to
-            // getScreenshot() to set savedImage
-            // NOTE: see sample definition of getScreenshot() method below
-            byte[] pngData = savedImage.EncodeToPNG();
-            builder = builder.WithUpdatedPngCoverImage(pngData);
+        //ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
+        //SavedGameMetadataUpdate.Builder builder = new SavedGameMetadataUpdate.Builder();
+        //builder = builder.WithUpdatedPlayedTime(_totalPlaytime).WithUpdatedDescription("Saved game at " + DateTime.Now);
+        ///*
+        //if (savedImage != null)
+        //{
+        //    // This assumes that savedImage is an instance of Texture2D
+        //    // and that you have already called a function equivalent to
+        //    // getScreenshot() to set savedImage
+        //    // NOTE: see sample definition of getScreenshot() method below
+        //    byte[] pngData = savedImage.EncodeToPNG();
+        //    builder = builder.WithUpdatedPngCoverImage(pngData);
 
-        }*/
+        //}*/
 
-        SavedGameMetadataUpdate updatedData = builder.Build();
-        savedGame.CommitUpdate(_game, updatedData, _data, OnCommitUpdateCallBack);
+        //SavedGameMetadataUpdate updatedData = builder.Build();
+        //savedGame.CommitUpdate(_game, updatedData, _data, OnCommitUpdateCallBack);
     }
 
     private void OnCommitUpdateCallBack(SavedGameRequestStatus _status, ISavedGameMetadata _game)
@@ -160,11 +160,11 @@ public class GPGSManager : MonoBehaviour {
 
     public void LoadGame(string _fileName)
     {
-        ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
-        savedGame.OpenWithAutomaticConflictResolution(_fileName,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLongestPlaytime,
-            OpenGameToLoadCallBack);
+        //ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
+        //savedGame.OpenWithAutomaticConflictResolution(_fileName,
+        //    DataSource.ReadCacheOrNetwork,
+        //    ConflictResolutionStrategy.UseLongestPlaytime,
+        //    OpenGameToLoadCallBack);
     }
 
     private void OpenGameToLoadCallBack(SavedGameRequestStatus _status, ISavedGameMetadata _game)
@@ -177,17 +177,17 @@ public class GPGSManager : MonoBehaviour {
 
     private void LoadGame(ISavedGameMetadata _game)
     {
-        ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
-        savedGame.ReadBinaryData(_game, delegate(SavedGameRequestStatus _status, byte[] _data){
-            if(_status == SavedGameRequestStatus.Success)
-            {
-                string str = Encoding.Default.GetString(_data);
-            }
-            else
-            {
-                PrintErrorMessage("Load Failed!!", _status);
-            }
-        });
+        //ISavedGameClient savedGame = PlayGamesPlatform.Instance.SavedGame;
+        //savedGame.ReadBinaryData(_game, delegate(SavedGameRequestStatus _status, byte[] _data){
+        //    if(_status == SavedGameRequestStatus.Success)
+        //    {
+        //        string str = Encoding.Default.GetString(_data);
+        //    }
+        //    else
+        //    {
+        //        PrintErrorMessage("Load Failed!!", _status);
+        //    }
+        //});
     }
 
     private void PrintErrorMessage(string _msg, SavedGameRequestStatus _errorCode)
